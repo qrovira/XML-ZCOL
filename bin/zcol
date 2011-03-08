@@ -1,0 +1,42 @@
+#!perl -w
+
+use warnings;
+use strict;
+use 5.010;
+
+use XML::ZCOL;
+use Getopt::Long;
+use Data::Dumper;
+
+my $tpl = "";
+my $debug;
+my $formatter = "html";
+my $res = "";
+my $help;
+
+GetOptions(
+	"template|t=s" 	=> \$tpl,
+	"formatter|f=s" => \$formatter,
+	"debug|d"	=> \$debug,
+	"help|h"        => \$help,
+);
+
+if($help) {
+	say 'Usage: $0 --tempate <template>  [ --formatter <formatter> ] [ --debug ]';
+	say '';
+	say 'Options can be abbreviated.';
+	say '';
+	say '    Available formatters: xml, html';
+	exit;
+}
+
+say "Transforming template '$tpl'";
+say "Result:";
+eval { $res = zcol_expand($tpl,$formatter); };
+if($@) { say "ERROR: $@"; }
+else { say $res; }
+
+if($debug) {
+	say "Debug:";
+	say Dumper(zcol_expand($tpl,"raw"));
+}

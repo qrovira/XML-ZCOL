@@ -1,0 +1,16 @@
+bin/zcol
+Changes
+gram_log
+ignore.txt
+lib/XML/ZCOL.pm
+Makefile.PL
+MANIFEST
+README
+t/00-load.t
+t/10-xml-formatter.t
+t/20-html-formatter.t
+t/30-parameters.t
+t/boilerplate.t
+t/manifest.t
+t/pod-coverage.t
+t/pod.t
