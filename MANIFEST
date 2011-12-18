@@ -1,7 +1,5 @@
 bin/zcol
 Changes
-gram_log
-ignore.txt
 lib/XML/ZCOL.pm
 Makefile.PL
 MANIFEST

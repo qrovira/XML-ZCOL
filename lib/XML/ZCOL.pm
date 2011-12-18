@@ -12,7 +12,7 @@ our @EXPORT = qw(zcol_expand);
 
 =head1 NAME
 
-XML::ZCOL - XML Zen-Coding One Liners
+XML::ZCOL - XML Zen-coding one-liners
 
 =head1 VERSION
 
