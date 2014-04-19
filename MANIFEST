@@ -1,6 +1,10 @@
 bin/zcol
 Changes
 lib/XML/ZCOL.pm
+lib/XML/ZCOL/Generator.pm
+lib/XML/ZCOL/Parser.pm
+lib/XML/ZCOL/Parser/HTML.pm
+lib/XML/ZCOL/Parser/XML.pm
 Makefile.PL
 MANIFEST
 README
