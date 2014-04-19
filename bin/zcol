@@ -10,29 +10,29 @@ use Data::Dumper;
 
 my $tpl = "";
 my $debug;
-my $formatter = "html";
+my $parser = "HTML";
 my $res = "";
 my $help;
 
 GetOptions(
 	"template|t=s" 	=> \$tpl,
-	"formatter|f=s" => \$formatter,
+	"parser|p=s" => \$parser,
 	"debug|d"	=> \$debug,
 	"help|h"        => \$help,
 );
 
 if($help) {
-	say 'Usage: $0 --tempate <template>  [ --formatter <formatter> ] [ --debug ]';
+	say 'Usage: $0 --tempate <template>  [ --parser <parser> ] [ --debug ]';
 	say '';
 	say 'Options can be abbreviated.';
 	say '';
-	say '    Available formatters: xml, html';
+	say '    Available parsers: xml, html';
 	exit;
 }
 
 say "Transforming template '$tpl'";
 say "Result:";
-eval { $res = zcol_expand($tpl,$formatter); };
+eval { $res = zcol_expand($tpl,$parser); };
 if($@) { say "ERROR: $@"; }
 else { say $res; }
 

@@ -14,7 +14,8 @@ WriteMakefile(
     EXE_FILES           => [ 'bin/zcol' ],
     PREREQ_PM => {
         'Test::More' => 0,
-	'Regexp::Grammars' => 0,
+        'Regexp::Grammars' => 0,
+        'Module::Pluggable' => '4.0',
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'XML-ZCOL-*' },

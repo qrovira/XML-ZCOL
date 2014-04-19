@@ -8,7 +8,7 @@ use strict;
 #Autoflush
 $| = 1;
 
-use Test::More tests => 17;
+use Test::More tests => 15;
 use Data::Dumper;
 use XML::ZCOL;
 
@@ -96,27 +96,9 @@ cmp_ok( $zcol->expand('tag="plain string"'), "eq", <<EOTR, "Tag content - quoted
 EOTR
 
 
-# Enable XML declaration and check
-$zcol->{options}{xml_declaration} = 1;
-cmp_ok( $zcol->expand("div"), "eq", <<EOTR, "Default XML declaration" );
-<?xml version="1.0" encoding="UTF-8">
-<div></div>
-EOTR
-
-# Different encoding
-# Enable XML declaration and check
-$zcol->{options}{xml_declaration_encoding} = "ISO-8859-1";
-cmp_ok( $zcol->expand("div"), "eq", <<EOTR, "XML declaration with some other encoding" );
-<?xml version="1.0" encoding="ISO-8859-1">
-<div></div>
-EOTR
-
-
-
 # full wrapping
 $zcol->{options}{fullwrap} = 1;
 cmp_ok( $zcol->expand("div"), "eq", <<EOTR, "HTML wrapping" );
-<?xml version="1.0" encoding="ISO-8859-1">
 <html>
 <head>
  <title>Some title</title>
@@ -132,7 +114,6 @@ EOTR
 
 $zcol->{options}{head_title} = "My spam";
 cmp_ok( $zcol->expand("div"), "eq", <<EOTR, "HTML wrapping - custom title" );
-<?xml version="1.0" encoding="ISO-8859-1">
 <html>
 <head>
  <title>My spam</title>

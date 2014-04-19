@@ -21,8 +21,8 @@ sub dump_res($) {
     say $res;
 }
 
-# Create a zcol instance: option-less xml formatter
-my $zcol = XML::ZCOL->new( formatter => "xml" );
+# Create a zcol instance: option-less xml parser
+my $zcol = XML::ZCOL->new( parser => "XML" );
 
 cmp_ok( $zcol->expand('lonelytag'), "eq", <<EOTR, "Lonely tag");
 <lonelytag></lonelytag>
@@ -37,15 +37,15 @@ cmp_ok( $zcol->expand('namespace:lonelytag'), "eq", <<EOTR, "Namespaced tag");
 <namespace:lonelytag></namespace:lonelytag>
 EOTR
 
-cmp_ok( $zcol->expand('classfulltag.myclass'), "eq", <<EOTR, "Tag with class");
+cmp_ok( $zcol->expand('classfulltag[class=myclass]'), "eq", <<EOTR, "Tag with class");
 <classfulltag class="myclass"></classfulltag>
 EOTR
 
-cmp_ok( $zcol->expand('identifiabletag#myid'), "eq", <<EOTR, "Tag with id");
+cmp_ok( $zcol->expand('identifiabletag[id=myid]'), "eq", <<EOTR, "Tag with id");
 <identifiabletag id="myid"></identifiabletag>
 EOTR
 
-cmp_ok( $zcol->expand('div#page>div.logo+ul#navigation>li*5>a'), "eq", <<EOTR, "tags, ids, same levels and nesting");
+cmp_ok( $zcol->expand('div[id=page]>div[class=logo]+ul[id=navigation]>li*5>a'), "eq", <<EOTR, "tags, ids, same levels and nesting");
 <div id="page">
   <div class="logo"></div>
   <ul id="navigation">
@@ -68,7 +68,7 @@ cmp_ok( $zcol->expand('div#page>div.logo+ul#navigation>li*5>a'), "eq", <<EOTR, "
 </div>
 EOTR
 
-cmp_ok( $zcol->expand('div#page>div.logo+ul#navigation>li.class$$$*5>a'), "eq", <<EOTR, "same again, with numberred classes");
+cmp_ok( $zcol->expand('div[id=page]>div[class=logo]+ul[id=navigation]>li[class=class$$$]*5>a'), "eq", <<EOTR, "same again, with numberred classes");
 <div id="page">
   <div class="logo"></div>
   <ul id="navigation">
@@ -149,6 +149,7 @@ $zcol->{options}{xml_declaration} = 1;
 cmp_ok( $zcol->expand("div"), "eq", <<EOTR, "Default XML declaration" );
 <?xml version="1.0" encoding="UTF-8">
 <div></div>
+
 EOTR
 
 # Different encoding
@@ -157,6 +158,7 @@ $zcol->{options}{xml_declaration_encoding} = "ISO-8859-1";
 cmp_ok( $zcol->expand("div"), "eq", <<EOTR, "XML declaration with some other encoding" );
 <?xml version="1.0" encoding="ISO-8859-1">
 <div></div>
+
 EOTR
 
 
